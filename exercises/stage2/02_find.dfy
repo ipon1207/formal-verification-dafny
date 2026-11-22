@@ -13,7 +13,8 @@ method Find(a: array<int>, key: int) returns (i: int)
 {
   i := 0;
   while i < a.Length
-    // TODO: invariant を書く
+    invariant 0 <= i <= a.Length
+    invariant forall k :: 0 <= k < i ==> a[k] != key
   {
     if a[i] == key {
       return;
