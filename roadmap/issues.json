@@ -1,0 +1,83 @@
+{
+  "label": { "name": "formal-verification", "color": "5319e7", "description": "形式検証入門ロードマップ" },
+  "milestones": [
+    { "title": "Stage 0: 環境構築", "description": "Dafny を手元で動かし、検証が通る・落ちるを体験する" },
+    { "title": "Stage 1: 契約を書く", "description": "ループのない関数で requires / ensures を書く" },
+    { "title": "Stage 2: ループ不変条件", "description": "invariant を書いてループを検証する" },
+    { "title": "Stage 3: 本物のバグと戦う", "description": "二分探索・オーバーフロー・配列の書き換え（modifies / old）" },
+    { "title": "Stage 4: 自分の題材で検証する", "description": "POS っぽい題材を仕様から書いて検証する" },
+    { "title": "Stage 5: 次の方向を決める", "description": "TLA+（設計の検証）か Lean 4（証明そのもの）へ進む" }
+  ],
+  "issues": [
+    {
+      "milestone": "Stage 0: 環境構築",
+      "title": "[Stage 0] Dafny の環境を作る",
+      "body": "## やること\n\n- [ ] VS Code に Dafny 拡張（dafny-lang.ide-vscode）を入れる\n- [ ] 拡張の案内に従って Dafny 本体（と必要なら .NET）を入れる\n- [ ] `exercises/stage1/01_abs.dfy` を開き、赤線（検証エラー）が出ることを確かめる\n- [ ] ターミナルで `dafny verify solutions/stage1/01_abs.dfy` を実行し、検証が通ることを確かめる\n\n## 完了の条件\n\n- エディタ上で「落ちる」と「通る」の両方を見た\n\n## メモ\n\n- コマンドラインだけで使う場合は `dotnet tool install --global dafny` でも入る"
+    },
+    {
+      "milestone": "Stage 1: 契約を書く",
+      "title": "[Stage 1-1] 絶対値 Abs",
+      "body": "## やること\n\n- [ ] `exercises/stage1/01_abs.dfy` の本体を書いて検証を通す\n- [ ] ensures を1行ずつ消し、どんな間違った実装が通ってしまうか試す\n\n## 振り返り\n\n- 仕様が弱いと何が起きるか、一言で書く"
+    },
+    {
+      "milestone": "Stage 1: 契約を書く",
+      "title": "[Stage 1-2] 最大値 Max",
+      "body": "## やること\n\n- [ ] `exercises/stage1/02_max.dfy` の本体を書いて検証を通す\n- [ ] 2つ目の ensures が何を防いでいるか説明を書く"
+    },
+    {
+      "milestone": "Stage 1: 契約を書く",
+      "title": "[Stage 1-3] 範囲に収める Clamp（requires の体験）",
+      "body": "## やること\n\n- [ ] `exercises/stage1/03_clamp.dfy` の本体を書いて検証を通す\n- [ ] `UseClamp` のコメントアウトを外し、エラーが「呼び出し側」に出ることを確かめる\n\n## 振り返り\n\n- requires と ensures は、それぞれ誰が守る約束なのか"
+    },
+    {
+      "milestone": "Stage 1: 契約を書く",
+      "title": "[Stage 1-4] 仕様を書く側に回る Min",
+      "body": "## やること\n\n- [ ] `exercises/stage1/04_min_write_spec.dfy` に ensures を書いて検証を通す\n- [ ] 本体をわざと間違えて、検証が落ちることを確かめる（落ちなければ仕様が弱い）\n\n## 振り返り\n\n- テストケースを書くのと仕様を書くのは、何が違ったか"
+    },
+    {
+      "milestone": "Stage 2: ループ不変条件",
+      "title": "[Stage 2-1] 配列の合計 Sum",
+      "body": "## やること\n\n- [ ] `exercises/stage2/01_sum.dfy` に invariant を書き足して検証を通す\n- [ ] invariant を1本ずつ消し、どのエラーが出るか読む\n\n## 振り返り\n\n- 不変条件を自分の言葉で説明する（ファインマンテクニック用のメモ）"
+    },
+    {
+      "milestone": "Stage 2: ループ不変条件",
+      "title": "[Stage 2-2] 線形探索 Find",
+      "body": "## やること\n\n- [ ] `exercises/stage2/02_find.dfy` に invariant を書き足して検証を通す\n\n## 振り返り\n\n- 「見つからなかった」を証明するために、何をループの外へ運ぶ必要があったか"
+    },
+    {
+      "milestone": "Stage 2: ループ不変条件",
+      "title": "[Stage 2-3] 最大要素 MaxElement",
+      "body": "## やること\n\n- [ ] `exercises/stage2/03_max_element.dfy` の本体と invariant を自分で書いて検証を通す\n\n## 振り返り\n\n- ensures の各行と invariant の各行の対応関係を書き出す"
+    },
+    {
+      "milestone": "Stage 3: 本物のバグと戦う",
+      "title": "[Stage 3-1] 二分探索 BinarySearch",
+      "body": "## やること\n\n- [ ] `exercises/stage3/01_binary_search.dfy` に invariant を書き足して検証を通す\n- [ ] `requires Sorted(a)` を消して、どこで落ちるか確かめる\n- [ ] mid の計算や lo / hi の更新をわざとずらし（`hi := mid - 1` など）、検証器に指摘させる"
+    },
+    {
+      "milestone": "Stage 3: 本物のバグと戦う",
+      "title": "[Stage 3-2] オーバーフロー Midpoint",
+      "body": "## やること\n\n- [ ] `exercises/stage3/02_midpoint_overflow.dfy` をそのまま検証し、エラーメッセージを読む\n- [ ] 検証が通る式に直す\n\n## 振り返り\n\n- C# の int で同じことが起きる条件を、具体的な値で書く\n- 普段のテストでこれを見つけられたか考える"
+    },
+    {
+      "milestone": "Stage 3: 本物のバグと戦う",
+      "title": "[Stage 3-3] 配列の反転 Reverse（modifies / old）",
+      "body": "## やること\n\n- [ ] `exercises/stage3/03_reverse.dfy` に invariant を書き足して検証を通す\n\n## 振り返り\n\n- `old` があると何が言えるようになるか\n- 配列の長さが奇数のとき、真ん中の要素がどう扱われているか"
+    },
+    {
+      "milestone": "Stage 4: 自分の題材で検証する",
+      "title": "[Stage 4-1] お釣りの計算 MakeChange",
+      "body": "## やること\n\n- [ ] `exercises/stage4/01_make_change.dfy` に invariant を書き足して検証を通す\n- [ ] `requires denoms[|denoms| - 1] == 1` を消したら何が証明できなくなるか確かめる\n\n## 振り返り\n\n- 「最後の金種が1円」という前提が、なぜお釣りの正しさに必要なのか"
+    },
+    {
+      "milestone": "Stage 4: 自分の題材で検証する",
+      "title": "[Stage 4-2] 自分で題材を作る",
+      "body": "## やること\n\n- [ ] `exercises/stage4/02_my_pos_rule.dfy` に、POS にありそうなルールを1つ選んで書く（会社のコードは使わない）\n- [ ] ensures を先に書き、実装は後で書く\n- [ ] 間違った実装が通らないことを確かめる\n\n## 振り返り\n\n- テストだけだったら見逃しそうだったことを書く"
+    },
+    {
+      "milestone": "Stage 5: 次の方向を決める",
+      "title": "[Stage 5] TLA+ か Lean 4 か決める",
+      "body": "## 判断材料\n\n- 並行処理・分散・業務フローなど「設計」が気になった → TLA+（Learn TLA+、Lamport の動画講座）\n- 自動証明が通らないとき、中で何が起きているか気になった → Lean 4（Natural Number Game、Functional Programming in Lean）\n\n## やること\n\n- [ ] Stage 1〜4 の振り返りメモを読み返す\n- [ ] どちらに進むか決めて、次のロードマップを作る"
+    }
+  ]
+}
