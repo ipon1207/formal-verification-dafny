@@ -20,6 +20,8 @@ method Sum(a: array<int>) returns (s: int)
   var i := 0;
   while i < a.Length
     // TODO: invariant を書く
+    invariant 0 <= i <= a.Length
+    invariant s == SumTo(a[..], i)
   {
     s := s + a[i];
     i := i + 1;
