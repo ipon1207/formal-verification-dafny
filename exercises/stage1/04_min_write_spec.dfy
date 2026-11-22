@@ -8,7 +8,8 @@
 //   （失敗しないなら、仕様が弱すぎる）
 
 method Min(a: int, b: int) returns (m: int)
-  // TODO: ensures を書く
+  ensures a == m || b == m
+  ensures a >= m && b >= m
 {
   if a < b {
     m := a;
