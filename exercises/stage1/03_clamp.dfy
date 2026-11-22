@@ -14,7 +14,13 @@ method Clamp(x: int, lo: int, hi: int) returns (r: int)
   ensures x < lo ==> r == lo
   ensures x > hi ==> r == hi
 {
-  // TODO
+  if x < lo {
+    r := lo;
+  } else if x > hi {
+    r := hi;
+  } else {
+    r := x;
+  }
 }
 
 method UseClamp()
